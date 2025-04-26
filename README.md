@@ -1,83 +1,108 @@
-# Brain Wave Mental Health Analyzer
+# NeurotiQ - Advanced Brain Wave Analysis Platform
 
-A React-based web application for analyzing brain wave data and providing mental health insights.
+NeurotiQ is a cutting-edge web application that combines neuroscience, quantum computing, and artificial intelligence to provide personalized mental health analysis and insights through brain wave data interpretation.
 
-## Features
+## 🧠 Features
 
-- Real-time brain wave data analysis
-- Interactive visualization with pie charts
-- Personalized analysis reports
-- Practical recommendations based on analysis results
+- **Brain Wave Analysis**: Advanced analysis of neural patterns using quantum computing algorithms
+- **Mental Health Dashboard**: Personalized dashboard showing real-time mental health metrics
+- **Professional Integration**: Connect with mental health professionals for expert guidance
+- **Daily Reflections**: Guided daily reflection prompts for mental wellness
+- **Activity Tracking**: Monitor and track wellness activities and their impact
+- **Mobile Responsive**: Fully optimized for all devices and screen sizes
 
-## Prerequisites
+## 🚀 Technology Stack
 
-- Node.js (v14 or higher)
-- npm (v6 or higher)
+- **Frontend**: React.js with TypeScript
+- **UI Framework**: Material-UI (MUI) v5
+- **State Management**: React Hooks
+- **Routing**: React Router v6
+- **Styling**: Emotion (CSS-in-JS)
+- **Animations**: Custom keyframes, React Type Animation
+- **Code Quality**: ESLint, TypeScript strict mode
 
-## Setup
+## 📦 Installation
 
 1. Clone the repository:
-```bash
-git clone https://github.com/ahamedfoisal/neurotiq-react
-cd neurotiq-react
+   ```bash
+   git clone https://github.com/ahamedfoisal/neurotiq-react.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd neurotiq-react
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+   ```bash
+   npm start
+   ```
+
+The application will be available at `http://localhost:3000`
+
+## 🔧 Environment Setup
+
+Create a `.env` file in the root directory with the following variables:
+```env
+REACT_APP_API_URL=your_api_url
 ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+## 📱 Responsive Design
 
-3. Create a `.env` file in the root directory and add your environment variables:
-```
-REACT_APP_API_URL=http://localhost:5000
-```
+The application is designed to be fully responsive across all devices:
+- Mobile-first approach
+- Adaptive layouts
+- Touch-friendly interfaces
+- Optimized performance
 
-## Running the Application
+## 🎯 Core Components
 
-1. Start the development server:
-```bash
-npm start
-```
+- **Landing Page**: Modern, animated introduction to the platform
+- **Dashboard**: Comprehensive overview of mental health metrics
+- **Analysis**: Real-time brain wave analysis interface
+- **About Us**: Team information and project background
+- **Professional Portal**: Interface for mental health professionals
 
-2. Open [http://localhost:3000](http://localhost:3000) in your browser.
+## 🔒 Security Features
 
-## Building for Production
+- Secure data transmission
+- Professional verification system
+- HIPAA compliance measures
+- Data encryption
 
-To create a production build:
+## 🤝 Contributing
 
-```bash
-npm run build
-```
-
-The build files will be created in the `build` directory.
-
-## Technology Stack
-
-- React
-- TypeScript
-- Material-UI
-- Recharts
-- Axios
-
-## Project Structure
-
-```
-src/
-  ├── components/       # React components
-  ├── services/        # API services
-  ├── types/           # TypeScript type definitions
-  ├── App.tsx          # Main application component
-  └── index.tsx        # Application entry point
-```
-
-## Contributing
+We welcome contributions! Please follow these steps:
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
 5. Open a Pull Request
 
-## License
+## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👥 Team
+
+A diverse group of students and mentors from around the world working together to advance quantum computing and mental health technology. Our team includes members from:
+- Institute of Applied Science INSA Lyon, France
+- Jeonbuk National University, South Korea
+- Arab American University Palestine
+- Agnostiq
+- Clemson University & SC Quantum
+- And many more institutions worldwide
+
+## 📞 Support
+
+For support, please open an issue in the repository or contact the development team.
+
+---
+
+Built with ❤️ by the NeurotiQ Team
