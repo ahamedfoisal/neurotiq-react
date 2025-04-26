@@ -157,8 +157,9 @@ export const LandingPage: React.FC = () => {
             <FloatingContainer 
               sx={{ 
                 position: 'relative',
-                display: { xs: 'none', sm: 'block' },
-                mt: { xs: 4, md: 0 }
+                display: 'block',
+                mt: { xs: 2, md: 0 },
+                order: { xs: -1, md: 0 },
               }}
             >
               <Box
@@ -168,9 +169,10 @@ export const LandingPage: React.FC = () => {
                 sx={{
                   width: '100%',
                   height: 'auto',
-                  maxWidth: '600px',
+                  maxWidth: { xs: '280px', sm: '400px', md: '600px' },
                   margin: '0 auto',
                   display: 'block',
+                  opacity: { xs: 0.8, md: 1 },
                 }}
               />
             </FloatingContainer>
