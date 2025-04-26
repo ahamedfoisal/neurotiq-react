@@ -229,21 +229,21 @@ export const Dashboard: React.FC = () => {
                   }}
                 >
                   Here's your wellness summary for today
-                </Typography>
-              </Box>
+        </Typography>
+      </Box>
               <Button
                 variant="contained"
                 onClick={() => navigate('/analyzer')}
-                sx={{ 
+      sx={{
                   mt: { xs: 2, sm: 0 },
-                  backgroundColor: 'rgba(127, 231, 243, 0.1)',
+          backgroundColor: 'rgba(127, 231, 243, 0.1)',
                   color: '#7FE7F3',
                   borderRadius: '12px',
                   px: 3,
                   py: 1.5,
-                  '&:hover': {
-                    backgroundColor: 'rgba(127, 231, 243, 0.2)',
-                  }
+          '&:hover': {
+            backgroundColor: 'rgba(127, 231, 243, 0.2)',
+          }
                 }}
               >
                 Start New Analysis
@@ -287,7 +287,7 @@ export const Dashboard: React.FC = () => {
                   borderRadius: '12px',
                   px: 3,
                   py: 1.5,
-                  '&:hover': {
+        '&:hover': {
                     borderColor: '#7FE7F3',
                     backgroundColor: 'rgba(127, 231, 243, 0.1)',
                   }
@@ -314,7 +314,7 @@ export const Dashboard: React.FC = () => {
         <Grid 
           container 
           spacing={2} 
-          sx={{ 
+        sx={{ 
             mb: 4,
             '& .MuiGrid-item': {
               display: 'flex',
@@ -405,7 +405,7 @@ export const Dashboard: React.FC = () => {
                   }}
                 >
                   <Box
-                    sx={{
+        sx={{
                       width: 40,
                       height: 40,
                       borderRadius: '50%',
@@ -421,7 +421,7 @@ export const Dashboard: React.FC = () => {
                   <ListItemText
                     primary={
           <Typography 
-                        variant="h6" 
+            variant="h6" 
             sx={{ 
                           color: '#fff',
                           fontSize: { xs: '1rem', sm: '1.1rem' },
@@ -467,7 +467,7 @@ export const Dashboard: React.FC = () => {
                 )}
               </React.Fragment>
             ))}
-          </List>
+        </List>
           <Box sx={{ p: 2, textAlign: 'center' }}>
             <Button
               variant="text"
@@ -494,7 +494,7 @@ export const Dashboard: React.FC = () => {
           }}
         >
           Today's Activities
-        </Typography>
+              </Typography>
         <StyledCard sx={{ mb: { xs: 3, md: 4 } }}>
           <List sx={{ p: 2 }}>
             {wellnessActivities.slice(0, 4).map((activity, index) => (
@@ -599,7 +599,7 @@ export const Dashboard: React.FC = () => {
             <CardContent sx={{ p: 3 }}>
               <Typography 
                 variant="h6" 
-                sx={{ 
+              sx={{ 
                   color: '#7FE7F3',
                   fontSize: { xs: '1.25rem', sm: '1.5rem' },
                   mb: 2
@@ -609,7 +609,7 @@ export const Dashboard: React.FC = () => {
               </Typography>
               <Typography 
                 variant="h5" 
-                sx={{ 
+              sx={{ 
                   color: '#fff',
                   fontSize: { xs: '1.75rem', sm: '2rem' },
                   mb: 3,
@@ -689,9 +689,9 @@ export const Dashboard: React.FC = () => {
                   '& .MuiOutlinedInput-root': {
                     '& fieldset': {
                       borderColor: 'rgba(127, 231, 243, 0.3)',
+                      },
                     },
-                  },
-                }}
+                  }}
               />
               <FormControl fullWidth>
                 <InputLabel>Specialization</InputLabel>

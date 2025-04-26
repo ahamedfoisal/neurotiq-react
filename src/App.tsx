@@ -6,6 +6,7 @@ import { LandingPage } from './components/LandingPage';
 import { Dashboard } from './components/Dashboard';
 import { Analysis } from './components/Analysis';
 import { LogoGenerator } from './components/LogoGenerator';
+import { AboutUs } from './components/AboutUs';
 import { Box, Typography, Button, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 
@@ -101,6 +102,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/analyzer" element={<Analysis />} />
+          <Route path="/about-us" element={<AboutUs />} />
           <Route path="/mental-wellness" element={<PlaceholderPage title="Mental Wellness" />} />
           <Route path="/self-care" element={<PlaceholderPage title="Self Care" />} />
           <Route path="/support" element={<PlaceholderPage title="Support" />} />

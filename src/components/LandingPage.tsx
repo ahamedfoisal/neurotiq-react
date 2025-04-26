@@ -1,29 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
   Box,
+  Button,
   Container,
-  Stack,
-  useTheme,
-  useMediaQuery,
+  Typography,
   Fade,
-  IconButton,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemButton,
 } from '@mui/material';
 import { styled, keyframes } from '@mui/material/styles';
 import { TypeAnimation } from 'react-type-animation';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import logo from '../assets/logo.png';
 import brainImage from '../assets/brain_with_headset2.png';
+import { Navbar } from './Navbar';
 
 const float = keyframes`
   0% { transform: translateY(0px); }
@@ -42,147 +29,15 @@ const FloatingContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const LandingPage: React.FC = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleStartAnalysis = () => {
     navigate('/analyzer');
   };
 
-  const handleDashboard = () => {
-    navigate('/dashboard');
-  };
-
-  const menuItems = [
-    { text: 'Features', onClick: () => {} },
-    { text: 'Research', onClick: () => {} },
-    { text: 'Dashboard', onClick: handleDashboard },
-    { text: 'Contact Us', onClick: () => {} },
-  ];
-
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
-
   return (
     <Box sx={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
-      {/* Navigation */}
-      <AppBar 
-        position="fixed" 
-        color="transparent" 
-        elevation={0} 
-        sx={{ 
-          backdropFilter: 'blur(10px)',
-          background: 'rgba(17, 17, 44, 0.7)',
-        }}
-      >
-        <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 8 } }}>
-          <Toolbar sx={{ justifyContent: 'space-between', minHeight: { xs: 64, sm: 80 } }}>
-            <Typography 
-              variant="h6" 
-              component="div" 
-              sx={{ 
-                display: 'flex', 
-                alignItems: 'center'
-              }}
-            >
-              <img 
-                src={logo} 
-                alt="NeurotiQ Logo" 
-                style={{ 
-                  height: isMobile ? 60 : 80, 
-                  width: 'auto' 
-                }} 
-              />
-            </Typography>
-            
-            {isMobile ? (
-              <IconButton
-                edge="end"
-                color="inherit"
-                aria-label="menu"
-                onClick={toggleMobileMenu}
-                sx={{ color: 'primary.main' }}
-              >
-                <MenuIcon />
-              </IconButton>
-            ) : (
-              <Stack direction="row" spacing={4}>
-                {menuItems.map((item) => (
-                  <Button 
-                    key={item.text}
-                    color="inherit"
-                    onClick={item.onClick}
-                    sx={{
-                      '&:hover': {
-                        color: 'primary.main',
-                      }
-                    }}
-                  >
-                    {item.text}
-                  </Button>
-                ))}
-              </Stack>
-            )}
-          </Toolbar>
-        </Container>
-      </AppBar>
-
-      {/* Mobile Menu Drawer */}
-      <Drawer
-        anchor="right"
-        open={mobileMenuOpen}
-        onClose={toggleMobileMenu}
-        PaperProps={{
-          sx: {
-            width: '100%',
-            maxWidth: '300px',
-            background: 'rgba(17, 17, 44, 0.95)',
-            backdropFilter: 'blur(10px)',
-            borderLeft: '1px solid rgba(127, 231, 243, 0.2)',
-          }
-        }}
-      >
-        <Box sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
-          <IconButton 
-            onClick={toggleMobileMenu}
-            sx={{ color: 'primary.main' }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </Box>
-        <List>
-          {menuItems.map((item) => (
-            <ListItem key={item.text} disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  item.onClick();
-                  toggleMobileMenu();
-                }}
-                sx={{
-                  py: 2,
-                  px: 3,
-                  '&:hover': {
-                    backgroundColor: 'rgba(127, 231, 243, 0.1)',
-                  }
-                }}
-              >
-                <ListItemText 
-                  primary={item.text}
-                  sx={{
-                    '& .MuiTypography-root': {
-                      fontSize: '1.1rem',
-                      fontWeight: 500,
-                    }
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
+      <Navbar />
 
       {/* Hero Section */}
       <Container 
