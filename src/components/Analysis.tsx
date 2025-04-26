@@ -590,13 +590,13 @@ export const Analysis: React.FC = () => {
 
           {/* EEG Analysis */}
           <Grid container spacing={3} sx={{ mt: 4 }}>
-            <Grid item xs={12}>
+            <Grid item xs={12} md={6}>
               <StyledCard>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
                     Real-time EEG Waves
                   </Typography>
-                  <Box sx={{ height: 400 }}>
+                  <Box sx={{ height: 300 }}>
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={eegData}>
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
@@ -639,6 +639,9 @@ export const Analysis: React.FC = () => {
                       </LineChart>
                     </ResponsiveContainer>
                   </Box>
+                  <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+                    Real-time visualization of all brain wave frequencies including Alpha, Beta, Theta, and Delta waves.
+                  </Typography>
                 </CardContent>
               </StyledCard>
             </Grid>
