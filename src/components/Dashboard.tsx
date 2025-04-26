@@ -17,6 +17,16 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Alert,
 } from '@mui/material';
 import {
   TrendingUp,
@@ -31,6 +41,7 @@ import {
   Warning as WarningIcon,
   ArrowUpward as ImprovementIcon,
   Lightbulb as InsightIcon,
+  Support as SupportIcon,
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { Sidebar, DRAWER_WIDTH } from './Sidebar';
@@ -119,9 +130,51 @@ export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState('Overview');
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [openInviteDialog, setOpenInviteDialog] = useState(false);
+  const [inviteForm, setInviteForm] = useState({
+    doctorName: '',
+    doctorEmail: '',
+    specialization: '',
+    hospitalName: '',
+    additionalNotes: '',
+  });
+  const [formError, setFormError] = useState('');
 
   const handleNextQuestion = () => {
     setCurrentQuestion((prev) => (prev + 1) % dailyQuestions.length);
+  };
+
+  const handleInviteFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setInviteForm({
+      ...inviteForm,
+      [e.target.name]: e.target.value,
+    });
+    setFormError('');
+  };
+
+  const handleSpecializationChange = (e: any) => {
+    setInviteForm({
+      ...inviteForm,
+      specialization: e.target.value,
+    });
+  };
+
+  const handleInviteSubmit = () => {
+    if (!inviteForm.doctorName || !inviteForm.doctorEmail) {
+      setFormError('Please fill in all required fields');
+      return;
+    }
+    // Here you would typically make an API call to send the invitation
+    console.log('Sending invitation:', inviteForm);
+    setOpenInviteDialog(false);
+    // Reset form
+    setInviteForm({
+      doctorName: '',
+      doctorEmail: '',
+      specialization: '',
+      hospitalName: '',
+      additionalNotes: '',
+    });
   };
 
   return (
@@ -170,6 +223,189 @@ export const Dashboard: React.FC = () => {
             </Box>
           </WelcomeCard>
         </Box>
+
+        {/* Invite Doctor Section */}
+        <Paper 
+          sx={{ 
+            p: 3,
+            mb: 4,
+            background: 'linear-gradient(135deg, rgba(127, 231, 243, 0.1), rgba(172, 182, 229, 0.1))',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(127, 231, 243, 0.2)',
+            borderRadius: 2,
+          }}
+        >
+          <Grid container spacing={3} alignItems="center">
+            <Grid item xs={12} md={8}>
+              <Typography variant="h5" gutterBottom sx={{ color: '#7FE7F3' }}>
+                Connect with a Mental Health Professional
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                Get personalized care and expert guidance by inviting your doctor to monitor your mental health progress.
+                Our secure platform ensures private and efficient communication.
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={4} sx={{ textAlign: { xs: 'left', md: 'right' } }}>
+              <Button
+                variant="contained"
+                startIcon={<SupportIcon />}
+                onClick={() => setOpenInviteDialog(true)}
+                sx={{
+                  backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                  color: '#7FE7F3',
+                  borderRadius: '20px',
+                  px: 4,
+                  py: 1.5,
+                  border: '1px solid rgba(127, 231, 243, 0.3)',
+                  boxShadow: '0 0 10px rgba(127, 231, 243, 0.2)',
+                  '&:hover': {
+                    backgroundColor: 'rgba(127, 231, 243, 0.2)',
+                    boxShadow: '0 0 15px rgba(127, 231, 243, 0.3)',
+                  },
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                Invite Your Doctor
+              </Button>
+            </Grid>
+          </Grid>
+        </Paper>
+
+        {/* Invite Doctor Dialog */}
+        <Dialog 
+          open={openInviteDialog} 
+          onClose={() => setOpenInviteDialog(false)}
+          PaperProps={{
+            sx: {
+              backgroundColor: 'rgba(17, 17, 44, 0.95)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: 2,
+              minWidth: { xs: '90%', sm: '500px' },
+            }
+          }}
+        >
+          <DialogTitle sx={{ color: '#7FE7F3' }}>
+            Invite Your Doctor
+          </DialogTitle>
+          <DialogContent>
+            {formError && (
+              <Alert severity="error" sx={{ mb: 2 }}>
+                {formError}
+              </Alert>
+            )}
+            <Stack spacing={2} sx={{ mt: 1 }}>
+              <TextField
+                name="doctorName"
+                label="Doctor's Name"
+                required
+                fullWidth
+                value={inviteForm.doctorName}
+                onChange={handleInviteFormChange}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: 'rgba(127, 231, 243, 0.3)',
+                    },
+                  },
+                }}
+              />
+              <TextField
+                name="doctorEmail"
+                label="Doctor's Email"
+                type="email"
+                required
+                fullWidth
+                value={inviteForm.doctorEmail}
+                onChange={handleInviteFormChange}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: 'rgba(127, 231, 243, 0.3)',
+                    },
+                  },
+                }}
+              />
+              <FormControl fullWidth>
+                <InputLabel>Specialization</InputLabel>
+                <Select
+                  value={inviteForm.specialization}
+                  onChange={handleSpecializationChange}
+                  label="Specialization"
+                  sx={{
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'rgba(127, 231, 243, 0.3)',
+                    },
+                  }}
+                >
+                  <MenuItem value="psychiatrist">Psychiatrist</MenuItem>
+                  <MenuItem value="neurologist">Neurologist</MenuItem>
+                  <MenuItem value="psychologist">Psychologist</MenuItem>
+                  <MenuItem value="therapist">Therapist</MenuItem>
+                  <MenuItem value="other">Other</MenuItem>
+                </Select>
+              </FormControl>
+              <TextField
+                name="hospitalName"
+                label="Hospital/Clinic Name"
+                fullWidth
+                value={inviteForm.hospitalName}
+                onChange={handleInviteFormChange}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: 'rgba(127, 231, 243, 0.3)',
+                    },
+                  },
+                }}
+              />
+              <TextField
+                name="additionalNotes"
+                label="Additional Notes"
+                multiline
+                rows={3}
+                fullWidth
+                value={inviteForm.additionalNotes}
+                onChange={handleInviteFormChange}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: 'rgba(127, 231, 243, 0.3)',
+                    },
+                  },
+                }}
+              />
+            </Stack>
+          </DialogContent>
+          <DialogActions sx={{ p: 3 }}>
+            <Button 
+              onClick={() => setOpenInviteDialog(false)}
+              sx={{ 
+                color: 'text.secondary',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                },
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleInviteSubmit}
+              sx={{
+                backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                color: '#7FE7F3',
+                borderRadius: '20px',
+                px: 3,
+                border: '1px solid rgba(127, 231, 243, 0.3)',
+                '&:hover': {
+                  backgroundColor: 'rgba(127, 231, 243, 0.2)',
+                },
+              }}
+            >
+              Send Invitation
+            </Button>
+          </DialogActions>
+        </Dialog>
 
         {/* Status Cards */}
         <Typography variant="h6" sx={{ mb: 2, pl: 1 }}>
