@@ -72,9 +72,10 @@ const Grid = MuiGrid as React.ComponentType<any>;
 
 const StyledCard = styled(Card)(({ theme }) => ({
   height: '100%',
-  background: 'rgba(127, 231, 243, 0.05)',
+  background: 'rgba(17, 25, 41, 0.7)',
   backdropFilter: 'blur(10px)',
   border: '1px solid rgba(255, 255, 255, 0.1)',
+  borderRadius: 16,
   transition: 'transform 0.3s ease-in-out',
   '&:hover': {
     transform: 'translateY(-5px)',
@@ -272,7 +273,6 @@ export const Analysis: React.FC = () => {
     <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default' }}>
       <Sidebar selectedItem={selectedItem} />
 
-      {/* Main Content */}
       <Box sx={{ flexGrow: 1 }}>
         <AppBar 
           position="fixed" 
@@ -280,8 +280,7 @@ export const Analysis: React.FC = () => {
           elevation={0} 
           sx={{ 
             backdropFilter: 'blur(10px)',
-            ml: `${DRAWER_WIDTH}px`,
-            width: `calc(100% - ${DRAWER_WIDTH}px)`
+            width: '100%'
           }}
         >
           <Container maxWidth="xl">
@@ -296,15 +295,13 @@ export const Analysis: React.FC = () => {
                 sx={{
                   backgroundColor: 'rgba(127, 231, 243, 0.1)',
                   color: '#7FE7F3',
-                  borderRadius: '20px',
-                  px: 3,
+                  borderRadius: '12px',
+                  px: { xs: 2, sm: 3 },
+                  py: 1,
                   border: '1px solid rgba(127, 231, 243, 0.3)',
-                  boxShadow: '0 0 10px rgba(127, 231, 243, 0.2)',
                   '&:hover': {
                     backgroundColor: 'rgba(127, 231, 243, 0.2)',
-                    boxShadow: '0 0 15px rgba(127, 231, 243, 0.3)',
-                  },
-                  transition: 'all 0.3s ease'
+                  }
                 }}
               >
                 Invite a Doctor
@@ -313,155 +310,24 @@ export const Analysis: React.FC = () => {
           </Container>
         </AppBar>
 
-        {/* Invite Doctor Dialog */}
-        <Dialog 
-          open={openInviteDialog} 
-          onClose={() => setOpenInviteDialog(false)}
-          PaperProps={{
-            sx: {
-              backgroundColor: 'rgba(17, 17, 44, 0.95)',
-              backdropFilter: 'blur(10px)',
-              borderRadius: 2,
-              minWidth: { xs: '90%', sm: '500px' },
-            }
-          }}
-        >
-          <DialogTitle sx={{ color: '#7FE7F3' }}>
-            Invite Your Doctor
-          </DialogTitle>
-          <DialogContent>
-            {formError && (
-              <Alert severity="error" sx={{ mb: 2 }}>
-                {formError}
-              </Alert>
-            )}
-            <Stack spacing={2} sx={{ mt: 1 }}>
-              <TextField
-                name="doctorName"
-                label="Doctor's Name"
-                required
-                fullWidth
-                value={inviteForm.doctorName}
-                onChange={handleInviteFormChange}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: 'rgba(127, 231, 243, 0.3)',
-                    },
-                  },
-                }}
-              />
-              <TextField
-                name="doctorEmail"
-                label="Doctor's Email"
-                type="email"
-                required
-                fullWidth
-                value={inviteForm.doctorEmail}
-                onChange={handleInviteFormChange}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: 'rgba(127, 231, 243, 0.3)',
-                    },
-                  },
-                }}
-              />
-              <FormControl fullWidth>
-                <InputLabel>Specialization</InputLabel>
-                <Select
-                  value={inviteForm.specialization}
-                  onChange={handleSpecializationChange}
-                  label="Specialization"
-                  sx={{
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'rgba(127, 231, 243, 0.3)',
-                    },
-                  }}
-                >
-                  <MenuItem value="psychiatrist">Psychiatrist</MenuItem>
-                  <MenuItem value="neurologist">Neurologist</MenuItem>
-                  <MenuItem value="psychologist">Psychologist</MenuItem>
-                  <MenuItem value="therapist">Therapist</MenuItem>
-                  <MenuItem value="other">Other</MenuItem>
-                </Select>
-              </FormControl>
-              <TextField
-                name="hospitalName"
-                label="Hospital/Clinic Name"
-                fullWidth
-                value={inviteForm.hospitalName}
-                onChange={handleInviteFormChange}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: 'rgba(127, 231, 243, 0.3)',
-                    },
-                  },
-                }}
-              />
-              <TextField
-                name="additionalNotes"
-                label="Additional Notes"
-                multiline
-                rows={3}
-                fullWidth
-                value={inviteForm.additionalNotes}
-                onChange={handleInviteFormChange}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: 'rgba(127, 231, 243, 0.3)',
-                    },
-                  },
-                }}
-              />
-            </Stack>
-          </DialogContent>
-          <DialogActions sx={{ p: 3 }}>
-            <Button 
-              onClick={() => setOpenInviteDialog(false)}
-              sx={{ 
-                color: 'text.secondary',
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                },
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="contained"
-              onClick={handleInviteSubmit}
-              sx={{
-                backgroundColor: 'rgba(127, 231, 243, 0.1)',
-                color: '#7FE7F3',
-                borderRadius: '20px',
-                px: 3,
-                border: '1px solid rgba(127, 231, 243, 0.3)',
-                '&:hover': {
-                  backgroundColor: 'rgba(127, 231, 243, 0.2)',
-                },
-              }}
-            >
-              Send Invitation
-            </Button>
-          </DialogActions>
-        </Dialog>
-
-        <Container maxWidth="xl" sx={{ mt: 10, mb: 4 }}>
-     
-
+        <Container maxWidth="xl" sx={{ mt: 10, mb: 4, px: { xs: 2, sm: 3 } }}>
           {/* Analysis Controls */}
           <Paper 
             sx={{ 
-              p: 3, 
-              mb: 4,
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              backdropFilter: 'blur(10px)'
+              p: { xs: 2, sm: 3 }, 
+              mb: { xs: 2, sm: 4 },
+              backgroundColor: 'rgba(17, 25, 41, 0.7)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: 2
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Box sx={{ 
+              display: 'flex', 
+              flexDirection: { xs: 'column', sm: 'row' },
+              alignItems: { xs: 'stretch', sm: 'center' }, 
+              justifyContent: 'space-between',
+              gap: 2
+            }}>
               <Typography variant="h6">Real-time Analysis</Typography>
               <Button
                 variant="contained"
@@ -470,8 +336,9 @@ export const Analysis: React.FC = () => {
                 disabled={isAnalyzing}
                 startIcon={isAnalyzing ? <CircularProgress size={20} /> : <BrainIcon />}
                 sx={{
-                  borderRadius: '20px',
+                  borderRadius: '12px',
                   px: 3,
+                  py: 1,
                   backgroundColor: 'rgba(127, 231, 243, 0.1)',
                   '&:hover': {
                     backgroundColor: 'rgba(127, 231, 243, 0.2)',
@@ -484,326 +351,132 @@ export const Analysis: React.FC = () => {
           </Paper>
 
           {/* Classification Results */}
-          <Box sx={{ 
-            display: 'grid',
-            gap: 4,
-            gridTemplateColumns: {
-              xs: '1fr',
-              md: 'repeat(2, 1fr)'
-            }
-          }}>
-            <Paper 
-              sx={{ 
-                p: 3,
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              <Typography variant="h6" gutterBottom>Classification Results</Typography>
-              <List>
-                {Object.entries(classificationResults).map(([key, value]) => (
-                  <ListItem key={key}>
-                    <ListItemIcon>
-                      <BrainIcon sx={{ color: '#7FE7F3' }} />
-                    </ListItemIcon>
-                    <ListItemText 
-                      primary={key.replace('_', ' ').toUpperCase()} 
-                      secondary={
-                        <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
-                          <Box 
-                            sx={{ 
-                              flexGrow: 1, 
-                              bgcolor: 'rgba(127, 231, 243, 0.1)',
-                              borderRadius: 1,
-                              mr: 2,
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                width: `${value}%`,
-                                bgcolor: '#7FE7F3',
-                                height: 10,
-                                borderRadius: 1,
-                              }}
-                            />
-                          </Box>
-                          <Typography variant="body2" color="textSecondary">
-                            {value}%
-                          </Typography>
-                        </Box>
-                      }
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Paper>
-
-            {/* AI Insights */}
-            <Paper 
-              sx={{ 
-                p: 3,
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              <Typography variant="h6" gutterBottom>AI Insights</Typography>
-              <List>
-                {[
-                  {
-                    type: 'observation',
-                    text: 'Your focus levels are exceptionally high, indicating strong concentration abilities.',
-                    icon: CheckIcon,
-                    color: '#4CAF50',
-                  },
-                  {
-                    type: 'warning',
-                    text: 'Moderate stress levels detected. Consider incorporating stress management techniques.',
-                    icon: WarningIcon,
-                    color: '#FFC107',
-                  },
-                  {
-                    type: 'improvement',
-                    text: 'Your meditation practice is showing positive results. Keep maintaining regular sessions.',
-                    icon: ImprovementIcon,
-                    color: '#7FE7F3',
-                  },
-                ].map((insight, index) => (
-                  <ListItem key={index}>
-                    <ListItemIcon>
-                      <insight.icon sx={{ color: insight.color }} />
-                    </ListItemIcon>
-                    <ListItemText primary={insight.text} />
-                  </ListItem>
-                ))}
-              </List>
-            </Paper>
-          </Box>
-
-          {/* Support and Resources Section */}
-          <Box sx={{ 
-            display: 'grid',
-            gap: 4,
-            gridTemplateColumns: {
-              xs: '1fr',
-              md: 'repeat(2, 1fr)'
-            },
-            mt: 4
-          }}>
-            {/* Nearby Clinics */}
-            <Paper 
-              sx={{ 
-                p: 3,
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <LocationIcon sx={{ mr: 1, color: '#7FE7F3' }} />
-                <Typography variant="h6">Nearby Mental Health Clinics</Typography>
-              </Box>
-              <List>
-                {nearbyClinics.map((clinic, index) => (
-                  <React.Fragment key={clinic.name}>
-                    <ListItem>
-                      <ListItemText
-                        primary={
-                          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <Typography variant="subtitle1">{clinic.name}</Typography>
-                            <Chip 
-                              label={clinic.distance} 
-                              size="small"
-                              sx={{ 
-                                backgroundColor: 'rgba(127, 231, 243, 0.1)',
-                                color: '#7FE7F3',
-                              }}
-                            />
-                          </Box>
-                        }
-                        secondary={
-                          <>
-                            <Typography variant="body2" color="textSecondary">
-                              {clinic.address}
-                            </Typography>
-                            <Box sx={{ display: 'flex', gap: 1, mt: 1 }}>
-                              {clinic.specialties.map(specialty => (
-                                <Chip 
-                                  key={specialty}
-                                  label={specialty}
-                                  size="small"
-                                  sx={{ 
-                                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                                  }}
-                                />
-                              ))}
-                            </Box>
-                          </>
-                        }
-                      />
-                    </ListItem>
-                    {index < nearbyClinics.length - 1 && (
-                      <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.1)' }} />
-                    )}
-                  </React.Fragment>
-                ))}
-              </List>
-            </Paper>
-
-            {/* Support and Chat */}
-            <Paper 
-              sx={{ 
-                p: 3,
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                backdropFilter: 'blur(10px)',
-                position: 'relative',
-                height: '100%',
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <SupportIcon sx={{ mr: 1, color: '#7FE7F3' }} />
-                <Typography variant="h6">24/7 Support</Typography>
-              </Box>
-              
-              {!isChatOpen ? (
-                <Box sx={{ textAlign: 'center', py: 4 }}>
-                  <Button
-                    variant="contained"
-                    startIcon={<ChatIcon />}
-                    onClick={() => setIsChatOpen(true)}
-                    sx={{
-                      backgroundColor: 'rgba(127, 231, 243, 0.1)',
-                      '&:hover': {
-                        backgroundColor: 'rgba(127, 231, 243, 0.2)',
-                      }
-                    }}
-                  >
-                    Start Chat with NeuroAssistant
-                  </Button>
-                  <Typography variant="body2" color="textSecondary" sx={{ mt: 2 }}>
-                    Get instant support and guidance from our AI assistant
-                  </Typography>
-                </Box>
-              ) : (
-                <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <IconButton 
-                      size="small" 
-                      onClick={() => setIsChatOpen(false)}
-                      sx={{ mb: 1 }}
-                    >
-                      <CloseIcon />
-                    </IconButton>
-                  </Box>
-                  
-                  <Box 
-                    ref={chatContainerRef}
-                    sx={{ 
-                      flexGrow: 1, 
-                      overflowY: 'auto',
-                      maxHeight: '300px',
-                      mb: 2,
-                    }}
-                  >
-                    {chatMessages.map(message => (
-                      <Box
-                        key={message.id}
-                        sx={{
-                          display: 'flex',
-                          justifyContent: message.sender === 'user' ? 'flex-end' : 'flex-start',
-                          mb: 2,
-                        }}
-                      >
-                        {message.sender === 'bot' && (
-                          <Avatar 
-                            sx={{ 
-                              bgcolor: 'rgba(127, 231, 243, 0.1)',
-                              mr: 1,
+          <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ mb: { xs: 2, sm: 4 } }}>
+            <Grid item xs={12} md={6}>
+              <StyledCard>
+                <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                  <Typography variant="h6" gutterBottom>Classification Results</Typography>
+                  <List>
+                    {Object.entries(classificationResults).map(([key, value]) => (
+                      <ListItem key={key}>
+                        <ListItemIcon>
+                          <Box
+                            sx={{
+                              width: 40,
+                              height: 40,
+                              borderRadius: '50%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              backgroundColor: 'rgba(127, 231, 243, 0.1)',
                             }}
                           >
                             <BrainIcon sx={{ color: '#7FE7F3' }} />
-                          </Avatar>
-                        )}
-                        <Paper
-                          sx={{
-                            maxWidth: '70%',
-                            p: 2,
-                            backgroundColor: message.sender === 'user' 
-                              ? 'rgba(127, 231, 243, 0.1)' 
-                              : 'rgba(255, 255, 255, 0.05)',
-                            borderRadius: 2,
-                          }}
-                        >
-                          <Typography variant="body1">
-                            {message.text}
-                          </Typography>
-                          <Typography 
-                            variant="caption" 
-                            sx={{ 
-                              display: 'block',
-                              mt: 1,
-                              color: 'text.secondary',
-                            }}
-                          >
-                            {message.timestamp.toLocaleTimeString()}
-                          </Typography>
-                        </Paper>
-                        {message.sender === 'user' && (
-                          <Avatar 
-                            sx={{ 
-                              bgcolor: 'rgba(127, 231, 243, 0.1)',
-                              ml: 1,
-                            }}
-                          >
-                            U
-                          </Avatar>
-                        )}
-                      </Box>
+                          </Box>
+                        </ListItemIcon>
+                        <ListItemText 
+                          primary={key.replace('_', ' ').toUpperCase()} 
+                          secondary={
+                            <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
+                              <Box 
+                                sx={{ 
+                                  flexGrow: 1, 
+                                  bgcolor: 'rgba(127, 231, 243, 0.1)',
+                                  borderRadius: 1,
+                                  mr: 2,
+                                  height: 8
+                                }}
+                              >
+                                <Box
+                                  sx={{
+                                    width: `${value}%`,
+                                    bgcolor: '#7FE7F3',
+                                    height: '100%',
+                                    borderRadius: 1,
+                                  }}
+                                />
+                              </Box>
+                              <Typography variant="body2" color="textSecondary">
+                                {value}%
+                              </Typography>
+                            </Box>
+                          }
+                        />
+                      </ListItem>
                     ))}
-                  </Box>
-                  
-                  <Box sx={{ display: 'flex', gap: 1 }}>
-                    <TextField
-                      fullWidth
-                      variant="outlined"
-                      placeholder="Type your message..."
-                      value={newMessage}
-                      onChange={(e) => setNewMessage(e.target.value)}
-                      onKeyPress={(e) => {
-                        if (e.key === 'Enter') {
-                          handleSendMessage();
-                        }
-                      }}
-                      sx={{
-                        '& .MuiOutlinedInput-root': {
-                          backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                        }
-                      }}
-                    />
-                    <IconButton 
-                      onClick={handleSendMessage}
-                      sx={{ 
-                        backgroundColor: 'rgba(127, 231, 243, 0.1)',
-                        '&:hover': {
-                          backgroundColor: 'rgba(127, 231, 243, 0.2)',
-                        }
-                      }}
-                    >
-                      <SendIcon />
-                    </IconButton>
-                  </Box>
-                </Box>
-              )}
-            </Paper>
-          </Box>
+                  </List>
+                </CardContent>
+              </StyledCard>
+            </Grid>
 
-          {/* EEG Analysis */}
-          <Grid container spacing={3} sx={{ mt: 4 }}>
+            {/* AI Insights */}
             <Grid item xs={12} md={6}>
               <StyledCard>
-                <CardContent>
+                <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                  <Typography variant="h6" gutterBottom>AI Insights</Typography>
+                  <List>
+                    {[
+                      {
+                        type: 'observation',
+                        text: 'Your focus levels are exceptionally high, indicating strong concentration abilities.',
+                        icon: CheckIcon,
+                        color: '#4CAF50',
+                      },
+                      {
+                        type: 'warning',
+                        text: 'Moderate stress levels detected. Consider incorporating stress management techniques.',
+                        icon: WarningIcon,
+                        color: '#FFC107',
+                      },
+                      {
+                        type: 'improvement',
+                        text: 'Your meditation practice is showing positive results. Keep maintaining regular sessions.',
+                        icon: ImprovementIcon,
+                        color: '#7FE7F3',
+                      },
+                    ].map((insight, index) => (
+                      <ListItem key={index}>
+                        <ListItemIcon>
+                          <Box
+                            sx={{
+                              width: 40,
+                              height: 40,
+                              borderRadius: '50%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              backgroundColor: `${insight.color}15`,
+                            }}
+                          >
+                            <insight.icon sx={{ color: insight.color }} />
+                          </Box>
+                        </ListItemIcon>
+                        <ListItemText 
+                          primary={insight.text}
+                          primaryTypographyProps={{
+                            sx: { 
+                              fontSize: { xs: '0.875rem', sm: '1rem' },
+                              lineHeight: 1.5
+                            }
+                          }}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </CardContent>
+              </StyledCard>
+            </Grid>
+          </Grid>
+
+          {/* EEG Analysis */}
+          <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ mb: { xs: 2, sm: 4 } }}>
+            <Grid item xs={12} md={6}>
+              <StyledCard>
+                <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                   <Typography variant="h6" gutterBottom>
                     Real-time EEG Waves
                   </Typography>
-                  <Box sx={{ height: 300 }}>
+                  <Box sx={{ height: { xs: 250, sm: 300 } }}>
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={eegData}>
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
@@ -811,8 +484,9 @@ export const Analysis: React.FC = () => {
                         <YAxis stroke="#B0B0B0" />
                         <Tooltip
                           contentStyle={{
-                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            backgroundColor: 'rgba(17, 25, 41, 0.9)',
                             border: '1px solid rgba(127, 231, 243, 0.3)',
+                            borderRadius: '8px',
                           }}
                         />
                         <Line
@@ -846,20 +520,17 @@ export const Analysis: React.FC = () => {
                       </LineChart>
                     </ResponsiveContainer>
                   </Box>
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-                    Real-time visualization of all brain wave frequencies including Alpha, Beta, Theta, and Delta waves.
-                  </Typography>
                 </CardContent>
               </StyledCard>
             </Grid>
 
             <Grid item xs={12} md={6}>
               <StyledCard>
-                <CardContent>
+                <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                   <Typography variant="h6" gutterBottom>
                     Alpha Wave Activity
                   </Typography>
-                  <Box sx={{ height: 300 }}>
+                  <Box sx={{ height: { xs: 250, sm: 300 } }}>
                     <ResponsiveContainer width="100%" height="100%">
                       <AreaChart data={eegData}>
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
@@ -867,8 +538,9 @@ export const Analysis: React.FC = () => {
                         <YAxis stroke="#B0B0B0" />
                         <Tooltip
                           contentStyle={{
-                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            backgroundColor: 'rgba(17, 25, 41, 0.9)',
                             border: '1px solid rgba(127, 231, 243, 0.3)',
+                            borderRadius: '8px',
                           }}
                         />
                         <Area
@@ -881,86 +553,216 @@ export const Analysis: React.FC = () => {
                       </AreaChart>
                     </ResponsiveContainer>
                   </Box>
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-                    Alpha waves are associated with relaxation and mental coordination.
-                    Higher alpha activity often indicates a calm, focused state.
-                  </Typography>
-                </CardContent>
-              </StyledCard>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <StyledCard>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    Beta Wave Activity
-                  </Typography>
-                  <Box sx={{ height: 300 }}>
-                    <ResponsiveContainer width="100%" height="100%">
-                      <AreaChart data={eegData}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                        <XAxis dataKey="time" stroke="#B0B0B0" />
-                        <YAxis stroke="#B0B0B0" />
-                        <Tooltip
-                          contentStyle={{
-                            backgroundColor: 'rgba(0,0,0,0.8)',
-                            border: '1px solid rgba(127, 231, 243, 0.3)',
-                          }}
-                        />
-                        <Area
-                          type="monotone"
-                          dataKey="beta"
-                          stroke="#ACB6E5"
-                          fill="rgba(172, 182, 229, 0.2)"
-                          name="Beta Wave"
-                        />
-                      </AreaChart>
-                    </ResponsiveContainer>
-                  </Box>
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-                    Beta waves are associated with active thinking and focus.
-                    Increased beta activity suggests high engagement and mental alertness.
-                  </Typography>
                 </CardContent>
               </StyledCard>
             </Grid>
           </Grid>
 
-          {/* Emergency Support */}
-          <Paper 
-            sx={{ 
-              p: 3,
-              mt: 4,
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              backdropFilter: 'blur(10px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Box>
-              <Typography variant="h6" gutterBottom>
-                Need Immediate Support?
-              </Typography>
-              <Typography variant="body1" color="textSecondary">
-                If you're experiencing a mental health emergency, please reach out to our 24/7 crisis hotline
-              </Typography>
-            </Box>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              sx={{
-                backgroundColor: 'rgba(76, 175, 80, 0.1)',
-                color: '#4CAF50',
-                '&:hover': {
-                  backgroundColor: 'rgba(76, 175, 80, 0.2)',
-                }
-              }}
-            >
-              Call Now: 1-800-273-8255
-            </Button>
-          </Paper>
+          {/* Support and Resources Section */}
+          <Grid container spacing={{ xs: 2, sm: 3 }}>
+            {/* Nearby Clinics */}
+            <Grid item xs={12} md={6}>
+              <StyledCard>
+                <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <LocationIcon sx={{ mr: 1, color: '#7FE7F3' }} />
+                    <Typography variant="h6">Nearby Mental Health Clinics</Typography>
+                  </Box>
+                  <List>
+                    {nearbyClinics.map((clinic, index) => (
+                      <React.Fragment key={clinic.name}>
+                        <ListItem>
+                          <ListItemText
+                            primary={
+                              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 1 }}>
+                                <Typography variant="subtitle1">{clinic.name}</Typography>
+                                <Chip 
+                                  label={clinic.distance} 
+                                  size="small"
+                                  sx={{ 
+                                    backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                                    color: '#7FE7F3',
+                                  }}
+                                />
+                              </Box>
+                            }
+                            secondary={
+                              <>
+                                <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
+                                  {clinic.address}
+                                </Typography>
+                                <Box sx={{ display: 'flex', gap: 1, mt: 1, flexWrap: 'wrap' }}>
+                                  {clinic.specialties.map(specialty => (
+                                    <Chip 
+                                      key={specialty}
+                                      label={specialty}
+                                      size="small"
+                                      sx={{ 
+                                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                      }}
+                                    />
+                                  ))}
+                                </Box>
+                              </>
+                            }
+                          />
+                        </ListItem>
+                        {index < nearbyClinics.length - 1 && (
+                          <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </List>
+                </CardContent>
+              </StyledCard>
+            </Grid>
+
+            {/* Support and Chat */}
+            <Grid item xs={12} md={6}>
+              <StyledCard>
+                <CardContent sx={{ p: { xs: 2, sm: 3 }, minHeight: { xs: 300, sm: 400 } }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <SupportIcon sx={{ mr: 1, color: '#7FE7F3' }} />
+                    <Typography variant="h6">24/7 Support</Typography>
+                  </Box>
+                  
+                  {!isChatOpen ? (
+                    <Box sx={{ textAlign: 'center', py: 4 }}>
+                      <Button
+                        variant="contained"
+                        startIcon={<ChatIcon />}
+                        onClick={() => setIsChatOpen(true)}
+                        sx={{
+                          backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                          '&:hover': {
+                            backgroundColor: 'rgba(127, 231, 243, 0.2)',
+                          }
+                        }}
+                      >
+                        Start Chat with NeuroAssistant
+                      </Button>
+                      <Typography variant="body2" color="textSecondary" sx={{ mt: 2 }}>
+                        Get instant support and guidance from our AI assistant
+                      </Typography>
+                    </Box>
+                  ) : (
+                    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <IconButton 
+                          size="small" 
+                          onClick={() => setIsChatOpen(false)}
+                          sx={{ mb: 1 }}
+                        >
+                          <CloseIcon />
+                        </IconButton>
+                      </Box>
+                      
+                      <Box 
+                        ref={chatContainerRef}
+                        sx={{ 
+                          flexGrow: 1, 
+                          overflowY: 'auto',
+                          maxHeight: { xs: '300px', sm: '400px' },
+                          mb: 2,
+                          px: 1
+                        }}
+                      >
+                        {chatMessages.map(message => (
+                          <Box
+                            key={message.id}
+                            sx={{
+                              display: 'flex',
+                              justifyContent: message.sender === 'user' ? 'flex-end' : 'flex-start',
+                              mb: 2,
+                            }}
+                          >
+                            {message.sender === 'bot' && (
+                              <Avatar 
+                                sx={{ 
+                                  bgcolor: 'rgba(127, 231, 243, 0.1)',
+                                  mr: 1,
+                                }}
+                              >
+                                <BrainIcon sx={{ color: '#7FE7F3' }} />
+                              </Avatar>
+                            )}
+                            <Paper
+                              sx={{
+                                maxWidth: '80%',
+                                p: 2,
+                                backgroundColor: message.sender === 'user' 
+                                  ? 'rgba(127, 231, 243, 0.1)' 
+                                  : 'rgba(255, 255, 255, 0.05)',
+                                borderRadius: 2,
+                              }}
+                            >
+                              <Typography variant="body1" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
+                                {message.text}
+                              </Typography>
+                              <Typography 
+                                variant="caption" 
+                                sx={{ 
+                                  display: 'block',
+                                  mt: 1,
+                                  color: 'text.secondary',
+                                }}
+                              >
+                                {message.timestamp.toLocaleTimeString()}
+                              </Typography>
+                            </Paper>
+                            {message.sender === 'user' && (
+                              <Avatar 
+                                sx={{ 
+                                  bgcolor: 'rgba(127, 231, 243, 0.1)',
+                                  ml: 1,
+                                }}
+                              >
+                                U
+                              </Avatar>
+                            )}
+                          </Box>
+                        ))}
+                      </Box>
+                      
+                      <Box sx={{ display: 'flex', gap: 1 }}>
+                        <TextField
+                          fullWidth
+                          variant="outlined"
+                          placeholder="Type your message..."
+                          value={newMessage}
+                          onChange={(e) => setNewMessage(e.target.value)}
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                              handleSendMessage();
+                            }
+                          }}
+                          sx={{
+                            '& .MuiOutlinedInput-root': {
+                              backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                              borderRadius: '12px',
+                            }
+                          }}
+                        />
+                        <IconButton 
+                          onClick={handleSendMessage}
+                          sx={{ 
+                            backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                            borderRadius: '12px',
+                            p: 2,
+                            '&:hover': {
+                              backgroundColor: 'rgba(127, 231, 243, 0.2)',
+                            }
+                          }}
+                        >
+                          <SendIcon />
+                        </IconButton>
+                      </Box>
+                    </Box>
+                  )}
+                </CardContent>
+              </StyledCard>
+            </Grid>
+          </Grid>
         </Container>
       </Box>
     </Box>

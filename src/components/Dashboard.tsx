@@ -27,6 +27,7 @@ import {
   Select,
   MenuItem,
   Alert,
+  useMediaQuery,
 } from '@mui/material';
 import {
   TrendingUp,
@@ -44,7 +45,7 @@ import {
   Support as SupportIcon,
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-import { Sidebar, DRAWER_WIDTH } from './Sidebar';
+import { Sidebar, DRAWER_WIDTH, COLLAPSED_DRAWER_WIDTH } from './Sidebar';
 
 // Styled components
 const DashboardContainer = styled(Box)(({ theme }) => ({
@@ -53,17 +54,29 @@ const DashboardContainer = styled(Box)(({ theme }) => ({
   background: theme.palette.background.default,
 }));
 
-const MainContent = styled(Box)(({ theme }) => ({
+const MainContent = styled(Box)<{ open?: boolean }>(({ theme }) => ({
   flexGrow: 1,
-  padding: 0,
-  marginLeft: 50,
+  padding: theme.spacing(3),
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  [theme.breakpoints.up('md')]: {
+    width: '100%'
+  },
+  [theme.breakpoints.down('md')]: {
+    marginLeft: 0,
+    width: '100%',
+    padding: theme.spacing(2),
+    paddingTop: theme.spacing(8),
+  },
 }));
 
 const StyledCard = styled(Card)(({ theme }) => ({
-  height: '100%',
-  background: 'rgba(127, 231, 243, 0.05)',
+  background: 'rgba(17, 25, 41, 0.7)',
   backdropFilter: 'blur(10px)',
   border: '1px solid rgba(255, 255, 255, 0.1)',
+  borderRadius: 16,
   transition: 'transform 0.3s ease-in-out',
   '&:hover': {
     transform: 'translateY(-5px)',
@@ -71,11 +84,11 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 const WelcomeCard = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(3),
-  marginBottom: theme.spacing(3),
-  background: 'rgba(127, 231, 243, 0.1)',
+  padding: theme.spacing(4),
+  background: 'rgba(17, 25, 41, 0.7)',
   backdropFilter: 'blur(10px)',
   border: '1px solid rgba(255, 255, 255, 0.1)',
+  borderRadius: 16,
 }));
 
 // Positive activities
@@ -128,6 +141,8 @@ const Grid = MuiGrid as React.ComponentType<any>;
 export const Dashboard: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [isDrawerOpen, setIsDrawerOpen] = useState(!isMobile);
   const [selectedItem, setSelectedItem] = useState('Overview');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [openInviteDialog, setOpenInviteDialog] = useState(false);
@@ -179,29 +194,40 @@ export const Dashboard: React.FC = () => {
 
   return (
     <DashboardContainer>
-      <Sidebar selectedItem={selectedItem} />
+      <Sidebar 
+        selectedItem={selectedItem}
+        onDrawerToggle={(open: boolean) => setIsDrawerOpen(open)}
+      />
 
-      {/* Main content */}
-      <MainContent>
-        {/* Welcome Section with Stats */}
-        <Box sx={{ mb: 4 }}>
+      <MainContent open={isDrawerOpen}>
+        {/* Welcome Section */}
+        <Box sx={{ mb: 3 }}>
           <WelcomeCard elevation={0}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <Box sx={{ 
+              display: 'flex', 
+              flexDirection: { xs: 'column', sm: 'row' },
+              justifyContent: 'space-between',
+              alignItems: { xs: 'flex-start', sm: 'center' }
+            }}>
               <Box>
                 <Typography 
                   variant="h4" 
-                  gutterBottom 
                   sx={{ 
-                    fontWeight: 600,
-                    background: 'linear-gradient(45deg, #7FE7F3, #ACB6E5)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    color: 'transparent',
+                    fontSize: { xs: '2rem', sm: '2.5rem' },
+                    fontWeight: 500,
+                    color: '#7FE7F3',
+                    mb: 1
                   }}
                 >
-                  Welcome back, Alex! 🌟
+                  Welcome back, Alex! ⭐
                 </Typography>
-                <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    color: 'rgba(255, 255, 255, 0.7)',
+                    fontSize: { xs: '1rem', sm: '1.1rem' }
+                  }}
+                >
                   Here's your wellness summary for today
                 </Typography>
               </Box>
@@ -209,10 +235,12 @@ export const Dashboard: React.FC = () => {
                 variant="contained"
                 onClick={() => navigate('/analyzer')}
                 sx={{ 
-                  borderRadius: '20px',
+                  mt: { xs: 2, sm: 0 },
+                  backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                  color: '#7FE7F3',
+                  borderRadius: '12px',
                   px: 3,
                   py: 1.5,
-                  backgroundColor: 'rgba(127, 231, 243, 0.1)',
                   '&:hover': {
                     backgroundColor: 'rgba(127, 231, 243, 0.2)',
                   }
@@ -225,51 +253,391 @@ export const Dashboard: React.FC = () => {
         </Box>
 
         {/* Invite Doctor Section */}
-        <Paper 
-          sx={{ 
-            p: 3,
-            mb: 4,
-            background: 'linear-gradient(135deg, rgba(127, 231, 243, 0.1), rgba(172, 182, 229, 0.1))',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(127, 231, 243, 0.2)',
-            borderRadius: 2,
-          }}
-        >
-          <Grid container spacing={3} alignItems="center">
-            <Grid item xs={12} md={8}>
-              <Typography variant="h5" gutterBottom sx={{ color: '#7FE7F3' }}>
+        <Box sx={{ mb: 3 }}>
+          <StyledCard>
+            <CardContent sx={{ p: 3 }}>
+              <Typography 
+                variant="h5" 
+                sx={{ 
+                  color: '#7FE7F3',
+                  fontSize: { xs: '1.5rem', sm: '1.75rem' },
+                  mb: 2
+                }}
+              >
                 Connect with a Mental Health Professional
               </Typography>
-              <Typography variant="body1" color="text.secondary">
-                Get personalized care and expert guidance by inviting your doctor to monitor your mental health progress.
-                Our secure platform ensures private and efficient communication.
+              <Typography 
+                variant="body1" 
+                sx={{ 
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  fontSize: { xs: '0.9rem', sm: '1rem' },
+                  lineHeight: 1.6,
+                  mb: 3
+                }}
+              >
+                Get personalized care and expert guidance by inviting your doctor to monitor your mental health progress. Our secure platform ensures private and efficient communication.
               </Typography>
-            </Grid>
-            <Grid item xs={12} md={4} sx={{ textAlign: { xs: 'left', md: 'right' } }}>
               <Button
-                variant="contained"
+                variant="outlined"
                 startIcon={<SupportIcon />}
                 onClick={() => setOpenInviteDialog(true)}
                 sx={{
-                  backgroundColor: 'rgba(127, 231, 243, 0.1)',
                   color: '#7FE7F3',
-                  borderRadius: '20px',
-                  px: 4,
+                  borderColor: 'rgba(127, 231, 243, 0.3)',
+                  borderRadius: '12px',
+                  px: 3,
                   py: 1.5,
-                  border: '1px solid rgba(127, 231, 243, 0.3)',
-                  boxShadow: '0 0 10px rgba(127, 231, 243, 0.2)',
                   '&:hover': {
-                    backgroundColor: 'rgba(127, 231, 243, 0.2)',
-                    boxShadow: '0 0 15px rgba(127, 231, 243, 0.3)',
-                  },
-                  transition: 'all 0.3s ease'
+                    borderColor: '#7FE7F3',
+                    backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                  }
                 }}
               >
                 Invite Your Doctor
               </Button>
+            </CardContent>
+          </StyledCard>
+        </Box>
+
+        {/* Current Status */}
+        <Typography 
+          variant="h5" 
+          sx={{ 
+            mb: 2,
+            color: '#fff',
+            fontSize: { xs: '1.5rem', sm: '1.75rem' },
+            fontWeight: 500
+          }}
+        >
+          Current Status
+        </Typography>
+        <Grid 
+          container 
+          spacing={2} 
+          sx={{ 
+            mb: 4,
+            '& .MuiGrid-item': {
+              display: 'flex',
+            }
+          }}
+        >
+          {indicators.map((indicator) => (
+            <Grid item xs={6} sm={6} md={3} key={indicator.title}>
+              <StyledCard sx={{ 
+                width: '100%', 
+                display: 'flex', 
+                flexDirection: 'column',
+                background: 'rgba(17, 25, 41, 0.7)',
+                borderRadius: '16px'
+              }}>
+                <CardContent sx={{ 
+                  p: 3, 
+                  flex: 1, 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'space-between',
+                  height: '100%'
+                }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                    <Box
+                      sx={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: `${indicator.color}15`,
+                        '& > svg': {
+                          fontSize: '1.5rem'
+                        }
+                      }}
+                    >
+                      {indicator.icon}
+                    </Box>
+                    <Typography 
+                      variant="h6"
+                      sx={{ 
+                        color: '#fff',
+                        fontSize: { xs: '1.1rem', sm: '1.25rem' }
+                      }}
+                    >
+                      {indicator.title}
+                    </Typography>
+                  </Box>
+                  <Typography 
+                    variant="h5"
+                    sx={{ 
+                      color: indicator.color,
+                      fontSize: { xs: '1.5rem', sm: '1.75rem' },
+                      fontWeight: 500,
+                      mt: 2
+                    }}
+                  >
+                    {indicator.value}
+                  </Typography>
+                </CardContent>
+              </StyledCard>
             </Grid>
-          </Grid>
-        </Paper>
+          ))}
+        </Grid>
+
+        {/* Personalized Recommendations */}
+        <Typography 
+          variant="h5" 
+          sx={{ 
+            mb: 2,
+            color: '#fff',
+            fontSize: { xs: '1.5rem', sm: '1.75rem' },
+            fontWeight: 500
+          }}
+        >
+          Personalized Recommendations
+        </Typography>
+        <StyledCard sx={{ mb: { xs: 3, md: 4 } }}>
+          <List sx={{ p: 2 }}>
+            {recommendations.map((recommendation, index) => (
+              <React.Fragment key={recommendation.title}>
+                <ListItem 
+                  sx={{ 
+                    px: 2,
+                    py: 2,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                      mr: 2
+                    }}
+                  >
+                    <ImprovementIcon />
+                  </Box>
+                  <ListItemText
+                    primary={
+          <Typography 
+                        variant="h6" 
+            sx={{ 
+                          color: '#fff',
+                          fontSize: { xs: '1rem', sm: '1.1rem' },
+                          mb: 1
+                        }}
+                      >
+                        {recommendation.title}
+          </Typography>
+                    }
+                    secondary={
+                      <Stack direction="row" spacing={1}>
+                        <Chip
+                          label={recommendation.priority}
+                          size="small"
+                          sx={{
+                            backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                            color: '#7FE7F3',
+                            borderRadius: '15px',
+                          }}
+                        />
+                      </Stack>
+                    }
+                  />
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      ml: 2,
+                      color: '#7FE7F3',
+                      borderColor: 'rgba(127, 231, 243, 0.3)',
+                      borderRadius: '20px',
+                      px: 3,
+                      '&:hover': {
+                        borderColor: '#7FE7F3',
+                        backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                      }
+                    }}
+                  >
+                    Learn More
+                  </Button>
+                </ListItem>
+                {index < recommendations.length - 1 && (
+                  <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+                )}
+              </React.Fragment>
+            ))}
+          </List>
+          <Box sx={{ p: 2, textAlign: 'center' }}>
+            <Button
+              variant="text"
+              sx={{ 
+                color: '#7FE7F3',
+                '&:hover': {
+                  backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                }
+              }}
+            >
+              View All Recommendations
+            </Button>
+          </Box>
+        </StyledCard>
+
+        {/* Today's Activities */}
+        <Typography 
+          variant="h5" 
+          sx={{ 
+            mb: 2,
+            color: '#fff',
+            fontSize: { xs: '1.5rem', sm: '1.75rem' },
+            fontWeight: 500
+          }}
+        >
+          Today's Activities
+        </Typography>
+        <StyledCard sx={{ mb: { xs: 3, md: 4 } }}>
+          <List sx={{ p: 2 }}>
+            {wellnessActivities.slice(0, 4).map((activity, index) => (
+              <React.Fragment key={activity.title}>
+                <ListItem 
+                  sx={{ 
+                    px: 2,
+                    py: 2,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                      mr: 2
+                    }}
+                  >
+                    {activity.icon}
+                  </Box>
+                  <ListItemText
+                    primary={
+          <Typography 
+                        variant="h6" 
+            sx={{ 
+                          color: '#fff',
+                          fontSize: { xs: '1rem', sm: '1.1rem' },
+                          mb: 1
+                        }}
+                      >
+                        {activity.title}
+          </Typography>
+                    }
+                    secondary={
+                      <Stack direction="row" spacing={1}>
+                        <Chip
+                          label={activity.duration}
+                          size="small"
+                          sx={{
+                            backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                            color: '#7FE7F3',
+                            borderRadius: '15px',
+                          }}
+                        />
+                        <Chip
+                          label={activity.type}
+                          size="small"
+                          sx={{
+                            backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                            color: '#7FE7F3',
+                            borderRadius: '15px',
+                          }}
+                        />
+                      </Stack>
+                    }
+                  />
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      ml: 2,
+                      color: '#7FE7F3',
+                      borderColor: 'rgba(127, 231, 243, 0.3)',
+                      borderRadius: '20px',
+                      px: 3,
+                      '&:hover': {
+                        borderColor: '#7FE7F3',
+                        backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                      }
+                    }}
+                  >
+                    Start
+                  </Button>
+                </ListItem>
+                {index < wellnessActivities.slice(0, 4).length - 1 && (
+                  <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+                )}
+              </React.Fragment>
+            ))}
+          </List>
+          <Box sx={{ p: 2, textAlign: 'center' }}>
+            <Button
+              variant="text"
+              sx={{ 
+                color: '#7FE7F3',
+                '&:hover': {
+                  backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                }
+              }}
+            >
+              View All Activities
+            </Button>
+          </Box>
+        </StyledCard>
+
+        {/* Daily Reflection */}
+        <Box sx={{ mt: 4 }}>
+          <StyledCard>
+            <CardContent sx={{ p: 3 }}>
+              <Typography 
+                variant="h6" 
+                sx={{ 
+                  color: '#7FE7F3',
+                  fontSize: { xs: '1.25rem', sm: '1.5rem' },
+                  mb: 2
+                }}
+              >
+                Daily Reflection
+              </Typography>
+              <Typography 
+                variant="h5" 
+                sx={{ 
+                  color: '#fff',
+                  fontSize: { xs: '1.75rem', sm: '2rem' },
+                  mb: 3,
+                  fontWeight: 500
+                }}
+              >
+                {dailyQuestions[currentQuestion]}
+              </Typography>
+              <Button
+                variant="outlined"
+                onClick={handleNextQuestion}
+                sx={{ 
+                  color: '#7FE7F3',
+                  borderColor: 'rgba(127, 231, 243, 0.3)',
+                  borderRadius: '12px',
+                  px: 3,
+                  py: 1.5,
+                  '&:hover': {
+                    borderColor: '#7FE7F3',
+                    backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                  }
+                }}
+              >
+                Next Question
+              </Button>
+            </CardContent>
+          </StyledCard>
+        </Box>
 
         {/* Invite Doctor Dialog */}
         <Dialog 
@@ -317,7 +685,7 @@ export const Dashboard: React.FC = () => {
                 fullWidth
                 value={inviteForm.doctorEmail}
                 onChange={handleInviteFormChange}
-                sx={{
+              sx={{ 
                   '& .MuiOutlinedInput-root': {
                     '& fieldset': {
                       borderColor: 'rgba(127, 231, 243, 0.3)',
@@ -406,217 +774,6 @@ export const Dashboard: React.FC = () => {
             </Button>
           </DialogActions>
         </Dialog>
-
-        {/* Status Cards */}
-        <Typography variant="h6" sx={{ mb: 2, pl: 1 }}>
-          Current Status
-        </Typography>
-        <Grid container spacing={2} sx={{ mb: 4 }}>
-          {indicators.map((indicator) => (
-            <Grid item key={indicator.title} xs={12} sm={6} md={3}>
-              <StyledCard elevation={0}>
-                <CardContent>
-                  <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
-                    <IconButton
-                      size="small"
-                      sx={{ 
-                        backgroundColor: `${indicator.color}15`,
-                        color: indicator.color,
-                      }}
-                    >
-                      {indicator.icon}
-                    </IconButton>
-                    <Typography variant="h6" component="div">
-                      {indicator.title}
-                    </Typography>
-                  </Stack>
-                  <Typography 
-                    variant="h5"
-                    component="div"
-                    sx={{ 
-                      color: indicator.color,
-                      fontWeight: 500,
-                    }}
-                  >
-                    {indicator.value}
-                  </Typography>
-                </CardContent>
-              </StyledCard>
-            </Grid>
-          ))}
-        </Grid>
-
-        {/* Two Column Layout for Recommendations and Activities */}
-        <Grid container spacing={3} alignItems="flex-start">
-          {/* Left Column - Personalized Recommendations */}
-          <Grid item xs={12} md={6}>
-            <Typography variant="h6" sx={{ mb: 2, pl: 1 }}>
-              Personalized Recommendations
-            </Typography>
-            <Paper 
-              sx={{ 
-                p: 3,
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              <List>
-                {recommendations.map((rec, index) => (
-                  <React.Fragment key={index}>
-                    <ListItem>
-                      <ListItemIcon>
-                        <InsightIcon sx={{ color: '#7FE7F3' }} />
-                      </ListItemIcon>
-                      <ListItemText 
-                        primary={
-                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                            {rec.title}
-                            <Chip 
-                              label={rec.priority} 
-                              size="small"
-                              sx={{ 
-                                backgroundColor: 
-                                  rec.priority === 'High' ? 'rgba(76, 175, 80, 0.1)' :
-                                  rec.priority === 'Medium' ? 'rgba(255, 193, 7, 0.1)' :
-                                  'rgba(127, 231, 243, 0.1)',
-                                color:
-                                  rec.priority === 'High' ? '#4CAF50' :
-                                  rec.priority === 'Medium' ? '#FFC107' :
-                                  '#7FE7F3',
-                              }}
-                            />
-                          </Box>
-                        } 
-                        secondary={rec.description}
-                      />
-                    </ListItem>
-                    {index < recommendations.length - 1 && (
-                      <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.1)' }} />
-                    )}
-                  </React.Fragment>
-                ))}
-              </List>
-            </Paper>
-
-            {/* Daily Reflection */}
-            <Paper 
-              sx={{ 
-                p: 3,
-                mt: 3,
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                backdropFilter: 'blur(10px)',
-              }}
-            >
-              <Typography variant="h6" gutterBottom>
-                Daily Reflection
-              </Typography>
-              <Typography 
-                variant="h5" 
-                sx={{ 
-                  color: '#7FE7F3',
-                  fontWeight: 500,
-                  mb: 2
-                }}
-              >
-                {dailyQuestions[currentQuestion]}
-              </Typography>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={handleNextQuestion}
-                sx={{ 
-                  borderRadius: '20px',
-                  px: 3,
-                }}
-              >
-                Next Question
-              </Button>
-            </Paper>
-          </Grid>
-
-          {/* Right Column - Today's Activities */}
-          <Grid item xs={12} md={6}>
-            <Typography variant="h6" sx={{ mb: 2, pl: 1 }}>
-              Today's Activities
-            </Typography>
-            <Paper 
-              sx={{ 
-                p: 3,
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                backdropFilter: 'blur(10px)',
-                display: 'flex',
-                flexDirection: 'column',
-                height: 'calc(100% - 40px)', // Subtracting the height of the Typography header
-              }}
-            >
-              <List sx={{ flex: 1 }}>
-                {wellnessActivities.slice(0, 4).map((activity, index) => (
-                  <React.Fragment key={activity.title}>
-                    <ListItem>
-                      <ListItemIcon>
-                        <IconButton
-                          size="small"
-                          sx={{ 
-                            backgroundColor: 'rgba(127, 231, 243, 0.1)',
-                            color: 'primary.main',
-                          }}
-                        >
-                          {activity.icon}
-                        </IconButton>
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={activity.title}
-                        secondary={
-                          <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
-                            <Chip
-                              label={activity.duration}
-                              size="small"
-                              sx={{ backgroundColor: 'rgba(127, 231, 243, 0.1)' }}
-                            />
-                            <Chip
-                              label={activity.type}
-                              size="small"
-                              sx={{ backgroundColor: 'rgba(127, 231, 243, 0.1)' }}
-                            />
-                          </Stack>
-                        }
-                      />
-                      <Button
-                        variant="outlined"
-                        color="primary"
-                        size="small"
-                        sx={{ 
-                          ml: 2,
-                          borderRadius: '15px',
-                          minWidth: '100px'
-                        }}
-                      >
-                        Start
-                      </Button>
-                    </ListItem>
-                    {index < 3 && (
-                      <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.1)' }} />
-                    )}
-                  </React.Fragment>
-                ))}
-              </List>
-              <Box sx={{ textAlign: 'center', mt: 'auto', pt: 2 }}>
-                <Button
-                  variant="text"
-                  color="primary"
-                  sx={{ 
-                    borderRadius: '20px',
-                    '&:hover': {
-                      backgroundColor: 'rgba(127, 231, 243, 0.1)',
-                    }
-                  }}
-                >
-                  View All Activities
-                </Button>
-              </Box>
-            </Paper>
-          </Grid>
-        </Grid>
 
         {/* Background Gradient */}
         <Box
