@@ -32,7 +32,7 @@ export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleStartAnalysis = () => {
-    navigate('/dashboard');
+    navigate('/analyzer');
   };
 
   return (

@@ -74,6 +74,15 @@ const teamMembers = [
     image: premPhoto,
   },
   {
+    name: 'Tushar Pandey',
+    role: 'Mentor',
+    affiliation: 'Agnostiq',
+    country: 'India',
+    residence: 'USA',
+    skills: ['Quantum Computing', 'Mentorship', 'Development'],
+    image: tusharPhoto,
+  },
+  {
     name: 'Ahamed Foisal',
     role: 'Student',
     affiliation: 'New York University Abu Dhabi',
@@ -91,15 +100,7 @@ const teamMembers = [
     skills: ['Development', 'Research'],
     image: zainPhoto,
   },
-  {
-    name: 'Tushar Pandey',
-    role: 'Mentor',
-    affiliation: 'Agnostiq',
-    country: 'India',
-    residence: 'USA',
-    skills: ['Quantum Computing', 'Mentorship', 'Development'],
-    image: tusharPhoto,
-  },
+  
   {
     name: 'Valentine Mohaugen',
     role: 'Student/mentor',
