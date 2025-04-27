@@ -46,6 +46,7 @@ import {
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { Sidebar, DRAWER_WIDTH, COLLAPSED_DRAWER_WIDTH } from './Sidebar';
+import { Navbar } from './Navbar';
 
 // Styled components
 const DashboardContainer = styled(Box)(({ theme }) => ({
@@ -57,6 +58,7 @@ const DashboardContainer = styled(Box)(({ theme }) => ({
 const MainContent = styled(Box)<{ open?: boolean }>(({ theme }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
+  paddingTop: theme.spacing(12),
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -68,7 +70,7 @@ const MainContent = styled(Box)<{ open?: boolean }>(({ theme }) => ({
     marginLeft: 0,
     width: '100%',
     padding: theme.spacing(2),
-    paddingTop: theme.spacing(8),
+    paddingTop: theme.spacing(12),
   },
 }));
 
@@ -194,6 +196,7 @@ export const Dashboard: React.FC = () => {
 
   return (
     <DashboardContainer>
+      <Navbar />
       <Sidebar 
         selectedItem={selectedItem}
         onDrawerToggle={(open: boolean) => setIsDrawerOpen(open)}

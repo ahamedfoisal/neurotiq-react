@@ -27,7 +27,7 @@ import {
 } from '@mui/icons-material';
 import logo from '../assets/logo.png';
 
-export const DRAWER_WIDTH = 240;
+export const DRAWER_WIDTH = 270;
 export const COLLAPSED_DRAWER_WIDTH = 65;
 
 export const sidebarItems = [
