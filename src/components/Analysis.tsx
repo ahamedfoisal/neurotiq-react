@@ -800,6 +800,142 @@ export const Analysis: React.FC = () => {
           </Grid>
         </Container>
       </Box>
+
+      {/* Invite Doctor Dialog */}
+      <Dialog 
+        open={openInviteDialog} 
+        onClose={() => setOpenInviteDialog(false)}
+        PaperProps={{
+          sx: {
+            backgroundColor: 'rgba(17, 17, 44, 0.95)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: 2,
+            minWidth: { xs: '90%', sm: '500px' },
+          }
+        }}
+      >
+        <DialogTitle sx={{ color: '#7FE7F3' }}>
+          Invite Your Doctor
+        </DialogTitle>
+        <DialogContent>
+          {formError && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {formError}
+            </Alert>
+          )}
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            <TextField
+              name="doctorName"
+              label="Doctor's Name"
+              required
+              fullWidth
+              value={inviteForm.doctorName}
+              onChange={handleInviteFormChange}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'rgba(127, 231, 243, 0.3)',
+                  },
+                },
+              }}
+            />
+            <TextField
+              name="doctorEmail"
+              label="Doctor's Email"
+              type="email"
+              required
+              fullWidth
+              value={inviteForm.doctorEmail}
+              onChange={handleInviteFormChange}
+              sx={{ 
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'rgba(127, 231, 243, 0.3)',
+                  },
+                },
+              }}
+            />
+            <FormControl fullWidth>
+              <InputLabel>Specialization</InputLabel>
+              <Select
+                value={inviteForm.specialization}
+                onChange={handleSpecializationChange}
+                label="Specialization"
+                sx={{
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'rgba(127, 231, 243, 0.3)',
+                  },
+                }}
+              >
+                <MenuItem value="psychiatrist">Psychiatrist</MenuItem>
+                <MenuItem value="neurologist">Neurologist</MenuItem>
+                <MenuItem value="psychologist">Psychologist</MenuItem>
+                <MenuItem value="therapist">Therapist</MenuItem>
+                <MenuItem value="other">Other</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              name="hospitalName"
+              label="Hospital/Clinic Name"
+              fullWidth
+              value={inviteForm.hospitalName}
+              onChange={handleInviteFormChange}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'rgba(127, 231, 243, 0.3)',
+                  },
+                },
+              }}
+            />
+            <TextField
+              name="additionalNotes"
+              label="Additional Notes"
+              multiline
+              rows={3}
+              fullWidth
+              value={inviteForm.additionalNotes}
+              onChange={handleInviteFormChange}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'rgba(127, 231, 243, 0.3)',
+                  },
+                },
+              }}
+            />
+          </Stack>
+        </DialogContent>
+        <DialogActions sx={{ p: 3 }}>
+          <Button 
+            onClick={() => setOpenInviteDialog(false)}
+            sx={{ 
+              color: 'text.secondary',
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+              },
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleInviteSubmit}
+            sx={{
+              backgroundColor: 'rgba(127, 231, 243, 0.1)',
+              color: '#7FE7F3',
+              borderRadius: '20px',
+              px: 3,
+              border: '1px solid rgba(127, 231, 243, 0.3)',
+              '&:hover': {
+                backgroundColor: 'rgba(127, 231, 243, 0.2)',
+              },
+            }}
+          >
+            Send Invitation
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }; 
