@@ -33,10 +33,6 @@ export const COLLAPSED_DRAWER_WIDTH = 65;
 export const sidebarItems = [
   { text: 'Overview', icon: DashboardIcon, path: '/dashboard' },
   { text: 'Analysis', icon: BrainIcon, path: '/analyzer' },
-  { text: 'Mental Wellness', icon: Psychology, path: '/mental-wellness' },
-  { text: 'Self-Care', icon: SelfImprovement, path: '/self-care' },
-  { text: 'Support', icon: Help, path: '/support' },
-  { text: 'Settings', icon: Settings, path: '/settings' },
 ];
 
 interface SidebarProps {

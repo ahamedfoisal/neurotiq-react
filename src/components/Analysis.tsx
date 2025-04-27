@@ -67,6 +67,7 @@ import {
   Area,
 } from 'recharts';
 import { Sidebar, DRAWER_WIDTH } from './Sidebar';
+import { Navbar } from './Navbar';
 
 const Grid = MuiGrid as React.ComponentType<any>;
 
@@ -134,11 +135,7 @@ const generateEEGData = (startTime: number, length: number) => {
 
 const sidebarItems = [
   { text: 'Overview', icon: DashboardIcon, path: '/dashboard' },
-  { text: 'Analysis', icon: BrainIcon, path: '/analyzer' },
-  { text: 'Mental Wellness', icon: Psychology, path: '/mental-wellness' },
-  { text: 'Self-Care', icon: SelfImprovement, path: '/self-care' },
-  { text: 'Support', icon: Help, path: '/support' },
-  { text: 'Settings', icon: Settings, path: '/settings' },
+  { text: 'Analysis', icon: BrainIcon, path: '/analysis' },
 ];
 
 interface EEGData {
@@ -275,85 +272,29 @@ export const Analysis: React.FC = () => {
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: '#0A0A1A' }}>
       <Sidebar selectedItem={selectedItem} />
-
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar 
-          position="fixed" 
-          color="transparent" 
-          elevation={0} 
-          sx={{ 
-            backdropFilter: 'blur(10px)',
-            width: '100%',
-            bgcolor: 'rgba(22, 28, 36, 0.2)'
-          }}
-        >
-          <Container maxWidth="xl">
-            <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Typography variant="h6" sx={{ color: '#fff' }}>
-                Brain Wave Analysis
-              </Typography>
-              <Button
-                variant="contained"
-                startIcon={<SupportIcon />}
-                onClick={() => setOpenInviteDialog(true)}
-                sx={{
-                  backgroundColor: 'rgba(127, 231, 243, 0.1)',
-                  color: '#7FE7F3',
-                  borderRadius: '12px',
-                  px: { xs: 2, sm: 3 },
-                  py: 1,
-                  border: '1px solid rgba(127, 231, 243, 0.3)',
-                  '&:hover': {
-                    backgroundColor: 'rgba(127, 231, 243, 0.2)',
-                  }
-                }}
-              >
-                Invite a Doctor
-              </Button>
-            </Toolbar>
-          </Container>
-        </AppBar>
-
-        <Container maxWidth="xl" sx={{ mt: 10, mb: 4, px: { xs: 2, sm: 3 } }}>
-          {/* Analysis Controls */}
-          <Paper 
-            sx={{ 
-              p: { xs: 2, sm: 3 }, 
-              mb: { xs: 2, sm: 4 },
-              backgroundColor: 'rgba(22, 28, 36, 0.8)',
-              backdropFilter: 'blur(10px)',
-              borderRadius: 2
-            }}
-          >
-            <Box sx={{ 
-              display: 'flex', 
-              flexDirection: { xs: 'column', sm: 'row' },
-              alignItems: { xs: 'stretch', sm: 'center' }, 
-              justifyContent: 'space-between',
-              gap: 2
-            }}>
-              <Typography variant="h6" sx={{ color: '#fff' }}>Real-time Analysis</Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleStartAnalysis}
-                disabled={isAnalyzing}
-                startIcon={isAnalyzing ? <CircularProgress size={20} /> : <BrainIcon />}
-                sx={{
-                  backgroundColor: 'rgba(127, 231, 243, 0.1)',
-                  color: '#7FE7F3',
-                  borderRadius: '12px',
-                  px: 3,
-                  py: 1,
-                  '&:hover': {
-                    backgroundColor: 'rgba(127, 231, 243, 0.2)',
-                  }
-                }}
-              >
-                {isAnalyzing ? 'Analyzing...' : 'Start Analysis'}
-              </Button>
-            </Box>
-          </Paper>
+        <Navbar />
+        <Container maxWidth="xl" sx={{ mt: 13, mb: 4, px: { xs: 2, sm: 3 } }}>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
+            <Button
+              variant="contained"
+              startIcon={<SupportIcon />}
+              onClick={() => setOpenInviteDialog(true)}
+              sx={{
+                backgroundColor: 'rgba(127, 231, 243, 0.1)',
+                color: '#7FE7F3',
+                borderRadius: '12px',
+                px: { xs: 2, sm: 3 },
+                py: 1,
+                border: '1px solid rgba(127, 231, 243, 0.3)',
+                '&:hover': {
+                  backgroundColor: 'rgba(127, 231, 243, 0.2)',
+                }
+              }}
+            >
+              Invite a Doctor
+            </Button>
+          </Box>
 
           {/* Classification Results and AI Insights */}
           <Box sx={{ 
