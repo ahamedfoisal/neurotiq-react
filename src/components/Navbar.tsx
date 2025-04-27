@@ -22,7 +22,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import logo from '../assets/logo.png';
 
 export const menuItems = [
-  { text: 'Features', onClick: () => {} },
+  { text: 'Features', path: '/features' },
   { text: 'Research', onClick: () => {} },
   { text: 'Dashboard', path: '/dashboard' },
   { text: 'About Us', path: '/about-us' },

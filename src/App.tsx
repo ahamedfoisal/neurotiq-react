@@ -9,6 +9,7 @@ import { LogoGenerator } from './components/LogoGenerator';
 import { AboutUs } from './components/AboutUs';
 import { Box, Typography, Button, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { Features } from './components/Features';
 
 // Placeholder components for other routes
 const PlaceholderPage: React.FC<{ title: string }> = ({ title }) => {
@@ -100,6 +101,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/features" element={<Features />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/analyzer" element={<Analysis />} />
           <Route path="/about-us" element={<AboutUs />} />
