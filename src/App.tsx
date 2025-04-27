@@ -7,6 +7,7 @@ import { Dashboard } from './components/Dashboard';
 import { Analysis } from './components/Analysis';
 import { LogoGenerator } from './components/LogoGenerator';
 import { AboutUs } from './components/AboutUs';
+import { Research } from './components/Research';
 import { Box, Typography, Button, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Features } from './components/Features';
@@ -102,6 +103,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/features" element={<Features />} />
+          <Route path="/research" element={<Research />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/analyzer" element={<Analysis />} />
           <Route path="/about-us" element={<AboutUs />} />

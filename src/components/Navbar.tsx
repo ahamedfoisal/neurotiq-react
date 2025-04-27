@@ -23,7 +23,7 @@ import logo from '../assets/logo.png';
 
 export const menuItems = [
   { text: 'Features', path: '/features' },
-  { text: 'Research', onClick: () => {} },
+  { text: 'Research', path: '/research' },
   { text: 'Dashboard', path: '/dashboard' },
   { text: 'About Us', path: '/about-us' },
 ];
