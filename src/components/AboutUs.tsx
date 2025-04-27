@@ -20,6 +20,22 @@ import {
 import { styled } from '@mui/material/styles';
 import { Navbar } from './Navbar';
 
+// Import team photos
+import yousraPhoto from '../assets/team_photos/Yousra_farhani.jpeg';
+import premPhoto from '../assets/team_photos/Prem_Bist.jpg';
+import zainPhoto from '../assets/team_photos/Assaf_Zain.png';
+import tusharPhoto from '../assets/team_photos/Tushar-Pandey.jpg';
+import valentinePhoto from '../assets/team_photos/Mohaugen_Valentine.jpg';
+import mayurPhoto from '../assets/team_photos/Jhamnani_Mayur.jpeg';
+import makuochukwuPhoto from '../assets/team_photos/Okeke_Makuochukwu.jpeg';
+import douaaPhoto from '../assets/team_photos/Douaa-Salah.jpg';
+import fenleiPhoto from '../assets/team_photos/Chen_Fenlei.jpg';
+import sultanPhoto from '../assets/team_photos/Alshehhi_Sultan.jpg';
+import syedPhoto from '../assets/team_photos/Syed-Affan.jpg';
+import chantellePhoto from '../assets/team_photos/Chantel-Amoako.jpg';
+import foisalPhoto from '../assets/team_photos/Ahamed_Foisal.jpg';
+import khloudPhoto from '../assets/team_photos/Khloud-Al-Jallad.jpg';
+
 const Grid = MuiGrid as React.ComponentType<any>;
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -27,12 +43,12 @@ const StyledCard = styled(Card)(({ theme }) => ({
   backdropFilter: 'blur(10px)',
   border: '1px solid rgba(255, 255, 255, 0.1)',
   borderRadius: 16,
-  height: '400px', // Fixed height
-  width: '300px', // Fixed width
+  height: '550px', // Increased height to accommodate all content
+  width: '300px',
   display: 'flex',
   flexDirection: 'column',
   transition: 'transform 0.3s ease-in-out',
-  margin: '0 auto', // Center card in grid item
+  margin: '0 auto',
   '&:hover': {
     transform: 'translateY(-5px)',
   },
@@ -46,7 +62,7 @@ const teamMembers = [
     country: 'Algeria',
     residence: 'France',
     skills: ['Quantum Computing', 'Mentorship', 'Research'],
-    image: '/placeholder.jpg',
+    image: yousraPhoto,
   },
   {
     name: 'Prem Bist',
@@ -55,97 +71,7 @@ const teamMembers = [
     country: 'Nepal',
     residence: 'South Korea',
     skills: ['Quantum Computing', 'Research', 'Development'],
-    image: '/placeholder.jpg',
-  },
-  {
-    name: 'Zain Assaf',
-    role: 'Student',
-    affiliation: 'Arab American University Palestine',
-    country: 'Jordan',
-    residence: 'Palestine',
-    skills: ['Development', 'Research'],
-    image: '/placeholder.jpg',
-  },
-  {
-    name: 'Tushar Pandey',
-    role: 'Mentor',
-    affiliation: 'Agnostiq',
-    country: 'India',
-    residence: 'USA',
-    skills: ['Quantum Computing', 'Mentorship', 'Development'],
-    image: '/placeholder.jpg',
-  },
-  {
-    name: 'Valentine Mohaugen',
-    role: 'Student/mentor',
-    affiliation: 'Clemson University & SC Quantum',
-    country: 'USA',
-    residence: 'USA',
-    skills: ['Quantum Computing', 'Development'],
-    image: '/placeholder.jpg',
-  },
-  {
-    name: 'Mayur Manoj Jhamnani',
-    role: 'Student',
-    affiliation: 'American University of Sharjah',
-    country: 'India',
-    residence: 'UAE',
-    skills: ['Development', 'Research'],
-    image: '/placeholder.jpg',
-  },
-  {
-    name: 'Makuochukwu Okeke',
-    role: 'Student',
-    affiliation: 'African Leadership University, Rwanda',
-    country: 'Nigeria',
-    residence: 'Rwanda',
-    skills: ['Development', 'Research'],
-    image: '/placeholder.jpg',
-  },
-  {
-    name: 'Douaa Salah',
-    role: 'Student',
-    affiliation: 'École Polytechnique Fédérale de Lausanne',
-    country: 'Morocco',
-    residence: 'Switzerland',
-    skills: ['Development', 'Research'],
-    image: '/placeholder.jpg',
-  },
-  {
-    name: 'Fenlei Chen',
-    role: 'Student',
-    affiliation: 'Yale University',
-    country: 'USA',
-    residence: 'USA',
-    skills: ['Development', 'Research'],
-    image: '/placeholder.jpg',
-  },
-  {
-    name: 'Sultan Alshehhi',
-    role: 'Student',
-    affiliation: 'Khalifa University',
-    country: 'UAE',
-    residence: 'UAE',
-    skills: ['Development', 'Research'],
-    image: '/placeholder.jpg',
-  },
-  {
-    name: 'Syed Affan',
-    role: 'Student',
-    affiliation: 'Khalifa University',
-    country: 'USA',
-    residence: 'UAE',
-    skills: ['Development', 'Research'],
-    image: '/placeholder.jpg',
-  },
-  {
-    name: 'Chantelle Amoako-Atta',
-    role: 'Student',
-    affiliation: 'African Institute for Mathematical Sciences',
-    country: 'Ghana',
-    residence: 'Ghana',
-    skills: ['Development', 'Research'],
-    image: '/placeholder.jpg',
+    image: premPhoto,
   },
   {
     name: 'Ahamed Foisal',
@@ -154,7 +80,97 @@ const teamMembers = [
     country: 'Bangladesh',
     residence: 'UAE',
     skills: ['Development', 'Research'],
-    image: '/placeholder.jpg',
+    image: foisalPhoto,
+  },
+  {
+    name: 'Zain Assaf',
+    role: 'Student',
+    affiliation: 'Arab American University Palestine',
+    country: 'Jordan',
+    residence: 'Palestine',
+    skills: ['Development', 'Research'],
+    image: zainPhoto,
+  },
+  {
+    name: 'Tushar Pandey',
+    role: 'Mentor',
+    affiliation: 'Agnostiq',
+    country: 'India',
+    residence: 'USA',
+    skills: ['Quantum Computing', 'Mentorship', 'Development'],
+    image: tusharPhoto,
+  },
+  {
+    name: 'Valentine Mohaugen',
+    role: 'Student/mentor',
+    affiliation: 'Clemson University & SC Quantum',
+    country: 'USA',
+    residence: 'USA',
+    skills: ['Quantum Computing', 'Development'],
+    image: valentinePhoto,
+  },
+  {
+    name: 'Mayur Manoj Jhamnani',
+    role: 'Student',
+    affiliation: 'American University of Sharjah',
+    country: 'India',
+    residence: 'UAE',
+    skills: ['Development', 'Research'],
+    image: mayurPhoto,
+  },
+  {
+    name: 'Makuochukwu Okeke',
+    role: 'Student',
+    affiliation: 'African Leadership University, Rwanda',
+    country: 'Nigeria',
+    residence: 'Rwanda',
+    skills: ['Development', 'Research'],
+    image: makuochukwuPhoto,
+  },
+  {
+    name: 'Douaa Salah',
+    role: 'Student',
+    affiliation: 'École Polytechnique Fédérale de Lausanne',
+    country: 'Morocco',
+    residence: 'Switzerland',
+    skills: ['Development', 'Research'],
+    image: douaaPhoto,
+  },
+  {
+    name: 'Fenlei Chen',
+    role: 'Student',
+    affiliation: 'Yale University',
+    country: 'USA',
+    residence: 'USA',
+    skills: ['Development', 'Research'],
+    image: fenleiPhoto,
+  },
+  {
+    name: 'Sultan Alshehhi',
+    role: 'Student',
+    affiliation: 'Khalifa University',
+    country: 'UAE',
+    residence: 'UAE',
+    skills: ['Development', 'Research'],
+    image: sultanPhoto,
+  },
+  {
+    name: 'Syed Affan',
+    role: 'Student',
+    affiliation: 'Khalifa University',
+    country: 'USA',
+    residence: 'UAE',
+    skills: ['Development', 'Research'],
+    image: syedPhoto,
+  },
+  {
+    name: 'Chantelle Amoako-Atta',
+    role: 'Student',
+    affiliation: 'African Institute for Mathematical Sciences',
+    country: 'Ghana',
+    residence: 'Ghana',
+    skills: ['Development', 'Research'],
+    image: chantellePhoto,
   },
   {
     name: 'Khloud Al Jallad',
@@ -163,7 +179,7 @@ const teamMembers = [
     country: 'Syria',
     residence: 'Syria',
     skills: ['Development', 'Research'],
-    image: '/placeholder.jpg',
+    image: khloudPhoto,
   },
 ];
 
@@ -208,11 +224,12 @@ export const AboutUs: React.FC = () => {
                 <StyledCard>
                   <CardMedia
                     component="img"
-                    height="180"
+                    height="300"
                     image={member.image}
                     alt={member.name}
                     sx={{
                       objectFit: 'cover',
+                      objectPosition: 'top center',
                       backgroundColor: 'rgba(127, 231, 243, 0.1)',
                     }}
                   />
@@ -221,8 +238,8 @@ export const AboutUs: React.FC = () => {
                     flexGrow: 1,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: '220px', // Fixed content height
-                    overflow: 'hidden', // Prevent content overflow
+                    height: '250px', // Increased content height
+                    overflow: 'visible', // Allow content to be fully visible
                   }}>
                     <Typography 
                       variant="h6" 
@@ -232,11 +249,11 @@ export const AboutUs: React.FC = () => {
                         fontWeight: 500,
                         mb: 1,
                         lineHeight: 1.2,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 1,
-                        WebkitBoxOrient: 'vertical',
+                        overflow: 'visible',
+                        textOverflow: 'unset',
+                        display: 'block',
+                        WebkitLineClamp: 'unset',
+                        WebkitBoxOrient: 'unset',
                       }}
                     >
                       {member.name}
@@ -258,11 +275,11 @@ export const AboutUs: React.FC = () => {
                         color: 'text.secondary',
                         fontSize: '0.8rem',
                         mb: 2,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
+                        overflow: 'visible',
+                        textOverflow: 'unset',
+                        display: 'block',
+                        WebkitLineClamp: 'unset',
+                        WebkitBoxOrient: 'unset',
                         lineHeight: 1.3,
                       }}
                     >
@@ -273,7 +290,7 @@ export const AboutUs: React.FC = () => {
                         direction="row" 
                         spacing={0.5} 
                         sx={{ 
-                          mb: 1,
+                          mb: 1.5,
                           flexWrap: 'wrap',
                           gap: '4px',
                         }}
@@ -303,6 +320,7 @@ export const AboutUs: React.FC = () => {
                         display: 'flex', 
                         flexWrap: 'wrap', 
                         gap: '4px',
+                        mb: 1,
                       }}>
                         {member.skills.map((skill, idx) => (
                           <Chip
